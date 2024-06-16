@@ -1,0 +1,8 @@
+spring\bean\UserBean.class
+spring\controller\LoginController.class
+spring\dto\LoginDTO.class
+spring\repository\ConnectionClass.class
+spring\repository\UserRepository.class
+spring\bean\LoginBean.class
+spring\controller\UserController.class
+spring\dto\UserDTO.class

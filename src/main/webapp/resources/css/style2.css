@@ -1,0 +1,18 @@
+.form-control {
+  height: 50px;
+  background: #fff;
+  border-radius: 5px;
+  width:568px;
+  margin:15px;
+}
+.form-control:focus {
+  border-color: #ffbc3b;
+  box-shadow: none;
+}
+.modal-title{
+font-size: 30px;
+font-family:sans-serif;
+color:black;
+display:flex;
+justify-content: center;
+}
