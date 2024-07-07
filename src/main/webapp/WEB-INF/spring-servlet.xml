@@ -14,9 +14,10 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<context:component-scan base-package="spring" />
 
+	
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+	<mvc:resources mapping="/images/**" location="file:./images/" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -24,5 +25,6 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<bean id="mapper" class="org.modelmapper.ModelMapper"></bean>
-	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
 </beans>

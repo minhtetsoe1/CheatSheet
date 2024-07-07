@@ -437,10 +437,10 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 /*-------------------------------------
         7. Explore
 --------------------------------------*/
-.explore{
+/* .explore{
     padding:117px 0 95px;
     background: #f8fafb;
-}
+} */
 .explore-content{margin-top: 78px;}
 
 .single-explore-item {
