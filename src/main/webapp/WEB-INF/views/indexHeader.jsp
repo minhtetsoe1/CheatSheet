@@ -10,6 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <link rel="stylesheet" href="<c:url value ='resources/css/style2.css'/>">
 </head>
@@ -43,16 +44,25 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">Home</a></li>
-							<li class="scroll"><a href="#works">Cheat Sheets</a></li>
-							<li class="scroll"><a href="#explore">Create</a></li>
-							<li class="scroll"><a href="#reviews">Community</a></li>
-							<li class="scroll"><a href="#blog">Help</a></li>
+							<li class="active"><a href="<c:url value ="/" />">Home</a></li>
+							<li ><a href="<c:url value ="cheat-sheet/show-cheat-sheet" />">Cheat Sheets</a></li>
+							<li ><a href="<c:url value ="cheat-sheet/cheatsheet-create" />">Create</a></li>
+							<li ><a href="#">Community</a></li>
+							<li ><a href="#">Help</a></li>
 							<li class="scroll"><a href="<c:url value="#loginModal" />"
 								data-toggle="modal" data-target="#loginModal">Login</a></li>
 							<li class="scroll"><a href="<c:url value="#signupModal" />"
 								data-toggle="modal" data-target="#signupModal">Register</a></li>
+								
+							<c:if test="${result==true}">
+								<li>
+									<div style="margin-top: 35px;">
+										<a href="<c:url value="/profile" />"><i class="bi bi-person-circle"></i></a>
+									</div>
+								</li>
+							</c:if>
 						</ul>
+						
 						<!--/.nav -->
 					</div>
 					<!-- /.navbar-collapse -->
@@ -69,7 +79,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						
+
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -79,29 +89,27 @@
 					<div class="modal-body">
 
 						<div class="error-message">
-							<strong>${emailerror}</strong>
+							<strong>${loginResult}</strong>
 						</div>
-						<form:form action="${pageContext.request.contextPath}/user/login" class="row" id="loginForm" modelAttribute="loginBean"
+						<form:form action="${pageContext.request.contextPath}/login"
+							class="row" id="loginForm" modelAttribute="registerBean"
 							method="post">
 
 							<div class="m-5">
 
 								<span class="error-message" id="loginnameError"></span>
 								<form:input type="text" path="email" class="form-control"
-									id="loginname" name="loginName" placeholder="Email"
-									value="${loginbean.email }" />
+									id="loginname" name="loginName" placeholder="Email" />
 							</div>
 							<c:if test="${passworderror1==true}">
 								<div class="error-message">
 									<strong>${passworderror}</strong>
 								</div>
 							</c:if>
-							<div >
+							<div>
 								<span class="error-message" id="loginpasswordError"></span>
-								<form:input type="password" path="password"
-									class="form-control" id="loginpassword"
-									name="loginPassword" placeholder="Password"
-									value="${loginbean.password }" />
+								<form:input type="password" path="password" class="form-control"
+									id="loginpassword" name="loginPassword" placeholder="Password"/>
 							</div>
 
 							<div class="col-6" style="margin: 10px 10px;">
@@ -116,44 +124,45 @@
 				</div>
 			</div>
 		</div>
-			<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						
+
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<span class="modal-title" id="exampleModalLabel">Register Form</span>
+						<span class="modal-title" id="exampleModalLabel">Register
+							Form</span>
 					</div>
 					<div class="modal-body">
 						<div class="login">
 							<span>${success}</span> <span class="error mb-4">${error}</span>
 
-							<form:form
-								action="${pageContext.request.contextPath}/user/register"
+							<form:form action="${pageContext.request.contextPath}/register"
 								class="row" id="registrationForm" method="post"
 								modelAttribute="registerBean">
-								<div >
+								<div>
 									<span id="usernameError" class="error"></span>
 									<form:input type="text" path="name" class="form-control"
 										id="username" name="signupName" placeholder="Name" />
 								</div>
-								<div >
+								<div>
 									<span id="emailError" class="error"></span>
+									<span  class="error"> ${emailError }</span>
 									<form:input type="email" path="email" class="form-control"
 										id="email" name="signupEmail" placeholder="Email" />
 								</div>
-								<div >
+								<div>
 									<span id="passwordError" class="error"></span>
 									<form:input type="password" path="password"
 										class="form-control" id="password" name="signupPassword"
 										placeholder="Password" />
 								</div>
 
-								<div >
+								<div>
 									<span id="confirmPasswordError" class="error"></span>
 									<form:input type="password" path="conPassword"
 										class="form-control" id="confirmPassword"
@@ -169,16 +178,25 @@
 				</div>
 			</div>
 		</div>
+		</section>
 		<!-- Modal -->
-		<script>
-			$(document).ready(function() {
-				$('#loginModal').modal('show');
-			});
-			
+
+		<c:if test="${loginError}">
+			<script>
+				$(document).ready(function() {
+					$('#loginModal').modal('show');
+				});
+			</script>
+		</c:if>
+		<c:if test="${registerError}">
+			<script>
 			$(document).ready(function() {
 				$('#signupModal').modal('show');
 			});
 		</script>
+			</c:if>
+			<script src="<c:url value="/resources/js/register.js" />"></script>
+			<script src="<c:url value="/resources/js/login.js" />"></script>
 </body>
 
 </html>
